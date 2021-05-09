@@ -1,8 +1,6 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,8 +15,30 @@ namespace WorkerServiceExemple
             _logger = logger;
         }
 
+        public override Task StartAsync(CancellationToken cancellationToken)
+        {
+            //Read some config
+            //Some initialisation
+            //Initilize connection strings
+            return base.StartAsync(cancellationToken);
+
+        }
+
+
+        public override Task StopAsync(CancellationToken cancellationToken)
+        {
+            //Release connections
+            //Release memory
+            return base.StopAsync(cancellationToken);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stoppingToken"></param>
+        /// <returns></returns>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            //Business Logic
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);

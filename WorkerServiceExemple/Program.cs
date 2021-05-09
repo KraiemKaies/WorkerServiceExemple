@@ -1,9 +1,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WorkerServiceExemple.JobFactory;
+using WorkerServiceExemple.Jobs;
+using WorkerServiceExemple.Models;
+using WorkerServiceExemple.Schedular;
 
 namespace WorkerServiceExemple
 {
@@ -18,7 +22,18 @@ namespace WorkerServiceExemple
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<Worker>();
+                    //    services.AddHostedService<Worker>();
+                    //    services.AddHostedService<MyService>();
+
+                    services.AddSingleton<IJobFactory, MyJobFactory>();
+                    services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+                    services.AddSingleton<NotificationJob>();
+
+                    services.AddSingleton(new JobMetadata(Guid.NewGuid(), typeof(NotificationJob), "Notify Job", "0/10 * * * * ?"));
+
+                    services.AddHostedService<MySchedular>();
+
+
                 });
     }
 }
