@@ -11,6 +11,7 @@ namespace WorkerServiceExemple
         {
             while (!stoppingToken.IsCancellationRequested)
             {
+                Console.WriteLine("Bonsoir");
                 Console.WriteLine($"Worker is running at: { DateTime.Now}");
                 await Task.Delay(3000, stoppingToken);
             }
