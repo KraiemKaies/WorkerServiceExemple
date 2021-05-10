@@ -28,12 +28,10 @@ namespace WorkerServiceExemple
                     services.AddSingleton<IJobFactory, MyJobFactory>();
                     services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
                     services.AddSingleton<NotificationJob>();
-
-                    services.AddSingleton(new JobMetadata(Guid.NewGuid(), typeof(NotificationJob), "Notify Job", "0/10 * * * * ?"));
-
+            
+                    services.AddSingleton(new JobMetadata(Guid.NewGuid(), typeof(NotificationJob), "Notify First Job", "0/5 * * * * ?"));
                     services.AddHostedService<MySchedular>();
-
-
+                    
                 });
     }
 }

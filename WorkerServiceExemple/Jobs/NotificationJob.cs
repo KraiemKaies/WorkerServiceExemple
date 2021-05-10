@@ -16,6 +16,7 @@ namespace WorkerServiceExemple.Jobs
         public Task Execute(IJobExecutionContext context)
         {
             _logger.LogInformation($"Notify User at {DateTime.Now} and Jobtype: {context.JobDetail.JobType}");
+            Console.WriteLine("Bonjour Kaies");
             return Task.CompletedTask;
         }
     }
